@@ -1,5 +1,7 @@
 deploy:
-  - kubectl apply -f k8s.yml
+  remote: true
+  commands:
+    - kubectl apply -f k8s.yml
 dev:
   hello-world:
     image: okteto/aspnetcore-getting-started:dev
