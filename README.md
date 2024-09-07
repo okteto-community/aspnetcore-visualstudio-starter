@@ -168,8 +168,8 @@ Open `HelloWorldController.cs` in Visual Studio, set a breakpoint on line `26`. 
 
 Here pick `SSH` as the "Connection Type" and for the "Connection Target" use the values shown above in the image. The "Private Key" can be found at your home user's directory. Depending on your os this is:
 
-- `C:\Users\your-username\.okteto.\id_rsa_okteto` for Windows users and
-- `/Users/arsh/.okteto/id_rsa_okteto` for MacOS users
+- `C:\Users\your-username\.okteto.\id_ecdsa_okteto` for Windows users and
+- `/Users/your-username/.okteto/id_ecdsa_okteto` for MacOS users
 
 Once this is done, Visual Studio will connect to your development container via SSH and give you a list of processes you can attach to. Scroll through the list and select the `helloworld` process, as shown below:
 
