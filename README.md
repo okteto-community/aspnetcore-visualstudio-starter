@@ -164,7 +164,7 @@ Okteto enables you to debug your applications directly from your favorite IDE. L
 
 Open `HelloWorldController.cs` in Visual Studio, set a breakpoint on line `26`. Then go to the "Debug" menu and click the "Attach to Process..." option. Once that is done a popup will open.
 
-![configuring target](./static/configuring-target.JPG)
+![Connect to Remote SSH](./static/connect-to-remote-ssh.png)
 
 Here pick `SSH` as the "Connection Type" and for the "Connection Target" use the values shown above in the image. The "Private Key" can be found at your home user's directory. Depending on your os this is:
 
@@ -173,15 +173,15 @@ Here pick `SSH` as the "Connection Type" and for the "Connection Target" use the
 
 Once this is done, Visual Studio will connect to your development container via SSH and give you a list of processes you can attach to. Scroll through the list and select the `helloworld` process, as shown below:
 
-![list of processes](./static/list-of-processes.JPG)
+![attach to processes](./static/attach-to-process.png)
 
-Once you select the process, Visual Studio will switch to debug view, launch the debugger, and attach it to the process you just selected. You'll know it's finished when you see the Debugger windown below.
+After selecting the process, select `Managed...` as the Code Type, and click the `Attach` button. Visual Studio will switch to debug view, launch the debugger, and attach it to the process you just selected. You'll know it's finished when you see the Debugger windown below.
 
-[add image here]
+![Debug View](./static/debug-view.png)
 
 Go back to the browser and reload the page. As soon as the service receives the request, the execution will halt at your breakpoint and Visual Studio will jump to the front of the screen. You can then inspect the request, the available variables, etc.
 
-[add image here]
+![Breakpoint](./static/breakpoint-hit.png)
 
 Your code is executing in Okteto, but you can debug it from your local machine without any extra services or tools. Pretty cool no? 😉
 
