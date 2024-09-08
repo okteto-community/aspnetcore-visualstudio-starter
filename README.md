@@ -21,7 +21,9 @@ At the root of the directory, you'll find the `okteto.yml` file. This file descr
 
 ```yaml title="okteto.yml"
 deploy:
-  - kubectl apply -f k8s.yml
+  remote: true
+  commands:
+    - kubectl apply -f k8s.yml
 ```
 
 Deploy your development environment by executing:
