@@ -9,6 +9,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \
     && rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /vsdbg && \
+    curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+
 WORKDIR /src
 
 COPY *.csproj ./

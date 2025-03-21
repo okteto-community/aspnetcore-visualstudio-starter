@@ -4,3 +4,14 @@
 /hello-world/out
 .DS_Store
 .idea/
+
+hello-world/obj/
+
+# VS
+
+.vs/
+
+# nuget
+
+*.nupkg
+
