@@ -3,11 +3,24 @@ FROM okteto/dotnetcore:8 AS dev
 ## The Visual Studio debugger needs this folder created
 RUN mkdir /root/.vs-debugger
 
+
 ## Needed for Visual Studio Debugger to work
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    unzip \
     gdb \
     procps \
     && rm -rf /var/lib/apt/lists/*
+
+#RUN mkdir -p /vsdbg && \
+ #   curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+
+COPY testing/vs2022.zip /tmp/vs2022.zip
+RUN unzip /tmp/vs2022.zip -d /root/.vs-debugger/vs2022 || true
+RUN chmod +x /root/.vs-debugger/vs2022/vsdbg
+COPY testing/GetVsDbg.sh /root/.vs-debugger
+ENV VSDEBUGGER_SKIP_INSTALL=1
+
+
 
 WORKDIR /src
 

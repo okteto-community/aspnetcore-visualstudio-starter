@@ -2,9 +2,20 @@ deploy:
   remote: true
   commands:
     - kubectl apply -f k8s.yml
+
+
+build: 
+  hello-world: 
+    context: hello-world
+    dockerfile: Dockerfile
+  hello-world-dev:
+    context: hello-world
+    target: dev
+
 dev:
   hello-world:
-    image: okteto/aspnetcore-getting-started:dev
+    image: ${OKTETO_BUILD_HELLO_WORLD_DEV_IMAGE}
+    # command: nohup /vsdbg/vsdbg --interpreter=vscode > /dev/null 2>&1 & bash
     command: bash
     securityContext:
       capabilities:
