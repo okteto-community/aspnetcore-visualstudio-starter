@@ -15,7 +15,8 @@ build:
 dev:
   hello-world:
     image: ${OKTETO_BUILD_HELLO_WORLD_DEV_IMAGE}
-    command: nohup /vsdbg/vsdbg --interpreter=vscode > /dev/null 2>&1 & bash
+    # command: nohup /vsdbg/vsdbg --interpreter=vscode > /dev/null 2>&1 & bash
+    command: bash
     securityContext:
       capabilities:
         add:
