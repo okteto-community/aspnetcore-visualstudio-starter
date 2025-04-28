@@ -171,13 +171,13 @@ You need to install the `Remote Tools` addon in your Visual Studio instance in o
 
 1. In Visual Studio on your local Windows system, choose Tools > Options on the menu bar to open the Options dialog. Then select Cross Platform > Connection Manager to open the Connection Manager dialog.
 2. In the Connection Manager dialog, choose the Add button to add a new connection.
-3. Enter the following information:
+3. Enter the following information (replace "<your-username>" with your Windows username):
 
             Host Name:	localhost
             Port:	2222
             User name: root
             Authentication type:	Private Key
-            Private key file:	C:\Users\your-username\.okteto.\id_ecdsa_okteto
+            Private key file:	C:\Users\<your-username>\.okteto.\id_ecdsa_okteto
             
 4. Choose the Connect button to attempt a connection to the remote computer.
 
@@ -197,8 +197,7 @@ Visual Studio 2022's remote debugger doesn't support remote debugging. Instead, 
 
 With this, we are ready to attach the debugger and step into the code.
 
-### Debug o the remote process
-
+### Debug the remote process
 
 Open `HelloWorldController.cs` in Visual Studio, set a breakpoint on line `26`. Then go to the "Debug" menu and click the "Attach to Process..." option. Once that is done a popup will open. Here pick `SSH` as the "Connection Type" and select the connection we created in the first step of the process.
 

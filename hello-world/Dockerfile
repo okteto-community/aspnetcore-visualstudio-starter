@@ -18,7 +18,7 @@ RUN unzip -d /tmp/vs-debugger/vs2022 /tmp/vs-debugger/vs2022.zip || true && \
 # Tells Visual Studio to not download the debugger
 ENV VSDEBUGGER_SKIP_INSTALL=1
 
-FROM base as dev
+FROM base AS dev
 
 WORKDIR /src
 
