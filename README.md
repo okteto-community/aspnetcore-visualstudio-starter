@@ -1,8 +1,8 @@
-# ASP.NET Core Sample App for Visual Studio
+# ASP.NET Core Sample App for Visual Studio 2022
 
-This example shows how to leverage [Okteto](https://github.com/okteto/okteto) to develop and attach a debugger to a ASP.NET Core Sample App when using [Visual Studio](https://visualstudio.microsoft.com/).
+This example shows how to leverage [Okteto](https://github.com/okteto/okteto) to develop and attach a debugger to a ASP.NET Core Sample App when using [Visual Studio 2022](https://visualstudio.microsoft.com/).
 
-This guide is similar to the [Getting Started on Okteto with ASP.NET Applications in Kubernetes](https://www.okteto.com/docs/samples/aspnetcore/) tutorial but has been tailored to work with Visual Studio instead of Visual Studio Code as in the original guide.
+This guide is similar to the [Getting Started on Okteto with ASP.NET Applications in Kubernetes](https://www.okteto.com/docs/samples/aspnetcore/) tutorial but has been tailored to work with Visual Studio 2022 instead of Visual Studio Code as in the original guide.
 
 ## Prerequisites
 
@@ -164,16 +164,45 @@ Go back to the browser and reload the page. Your code changes were instantly app
 
 Okteto enables you to debug your applications directly from your favorite IDE. Let's take a look at how that works in Visual Studio using the Visual Studio debugger.
 
-Open `HelloWorldController.cs` in Visual Studio, set a breakpoint on line `26`. Then go to the "Debug" menu and click the "Attach to Process..." option. Once that is done a popup will open.
+### Download and Install the remote tools
+You need to install the `Remote Tools` addon in your Visual Studio instance in order to be able to remote debug a process.  Please [Visual Studio's official documentation](https://learn.microsoft.com/en-us/visualstudio/debugger/remote-debugging?view=vs-2022#download-and-install-the-remote-tools) to install it.
+
+### Set up the remote connection
+
+1. In Visual Studio on your local Windows system, choose Tools > Options on the menu bar to open the Options dialog. Then select Cross Platform > Connection Manager to open the Connection Manager dialog.
+2. In the Connection Manager dialog, choose the Add button to add a new connection.
+3. Enter the following information:
+
+            Host Name:	localhost
+            Port:	2222
+            User name: root
+            Authentication type:	Private Key
+            Private key file:	C:\Users\your-username\.okteto.\id_ecdsa_okteto
+            
+4. Choose the Connect button to attempt a connection to the remote computer.
 
 ![Connect to Remote SSH](./static/connect-to-remote-ssh.png)
 
-Here pick `SSH` as the "Connection Type" and for the "Connection Target" use the values shown above in the image. The "Private Key" can be found at your home user's directory. Depending on your os this is:
+### Build and start the process
 
-- `C:\Users\your-username\.okteto.\id_ecdsa_okteto` for Windows users and
-- `/Users/your-username/.okteto/id_ecdsa_okteto` for MacOS users
+Visual Studio 2022's remote debugger doesn't support remote debugging. Instead, you need to build your service, start it on the remote container, and then attach the debugger to it.
 
-Once this is done, Visual Studio will connect to your development container via SSH and give you a list of processes you can attach to. Scroll through the list and select the `helloworld` process, as shown below:
+1. Run the code below on your `okteto up` terminal to build your service. This will ensure that both Visual Studio and your binary have the same version of the source code:
+
+            cindy:hello-world src> dotnet build
+
+2. Run the code below on your `okteto up` terminal to start your service on your remote container:
+            
+            cindy:hello-world src> dotnet bin/Debug/netcoreapp8.0/helloworld.dll
+
+With this, we are ready to attach the debugger and step into the code.
+
+### Debug o the remote process
+
+
+Open `HelloWorldController.cs` in Visual Studio, set a breakpoint on line `26`. Then go to the "Debug" menu and click the "Attach to Process..." option. Once that is done a popup will open. Here pick `SSH` as the "Connection Type" and select the connection we created in the first step of the process.
+
+Once this is done, Visual Studio will connect to your development container via SSH and give you a list of processes you can attach to. Scroll through the list and select the `bin/Debug/netcoreapp8.0/helloworld.dll` process.
 
 ![attach to processes](./static/attach-to-process.png)
 
@@ -185,7 +214,7 @@ Go back to the browser and reload the page. As soon as the service receives the 
 
 ![Breakpoint](./static/breakpoint-hit.png)
 
-Your code is executing in Okteto, but you can debug it from your local machine without any extra services or tools. Pretty cool no? 😉
+Your code is executing in Okteto, but you can debug it from your local machine. Pretty cool no? 😉
 
 ## Next steps
 

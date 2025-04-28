@@ -1,7 +1,2 @@
-
-vsdbg/*
-!vsdbg/vsdbg
-!vsdbg/mono.lldb
-!vsdbg/dotnet-dump
-!vsdbg/dotnet-trace
-!vsdbg/dotnet-symbol
+bin
+obj/Debug

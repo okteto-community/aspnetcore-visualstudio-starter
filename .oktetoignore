@@ -1,0 +1,6 @@
+# ignore everything by default
+**
+
+[deploy]
+# we only sync k8s.yml because that's the only thing we need to deploy the service
+!k8s.yml

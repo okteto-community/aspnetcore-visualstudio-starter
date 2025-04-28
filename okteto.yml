@@ -1,9 +1,3 @@
-deploy:
-  remote: true
-  commands:
-    - kubectl apply -f k8s.yml
-
-
 build: 
   hello-world: 
     context: hello-world
@@ -12,10 +6,14 @@ build:
     context: hello-world
     target: dev
 
+deploy:
+  remote: true
+  commands:
+    - envsubst < k8s.yml | kubectl apply -f - 
+
 dev:
   hello-world:
     image: ${OKTETO_BUILD_HELLO_WORLD_DEV_IMAGE}
-    # command: nohup /vsdbg/vsdbg --interpreter=vscode > /dev/null 2>&1 & bash
     command: bash
     securityContext:
       capabilities:
@@ -23,6 +21,8 @@ dev:
           - SYS_PTRACE
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - VSDEBUGGER_SKIP_INSTALL=1
     remote: 2222
     sync:
       - hello-world:/src
+      - debugger:/root/.vs-debugger
